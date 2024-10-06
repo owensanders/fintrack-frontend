@@ -1,27 +1,11 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div
+    class="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white"
+  >
+    <h1 class="text-4xl font-bold mb-8">
+      FinTrack <i class="fa-solid fa-chart-pie"></i>
+    </h1>
+
+    <RouterView />
+  </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
-
-export default defineComponent({
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-});
-</script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

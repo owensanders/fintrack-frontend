@@ -1,5 +1,10 @@
 <template>
-  <div class="bg-gray-800 shadow-md rounded-lg p-8 w-full max-w-md">
+  <h1 class="text-4xl font-bold mt-4 md:mt-0">
+    FinTrack <i class="fa-solid fa-chart-pie"></i>
+  </h1>
+  <div
+    class="bg-gray-800 shadow-md rounded-lg p-6 max-w-md mx-5 my-5 md:mx-auto md:w-full md:p-8"
+  >
     <h2 class="text-2xl font-semibold mb-6 text-center">Register</h2>
     <form @submit.prevent="handleRegister">
       <Input label="Email" id="email" v-model="email" type="email" />

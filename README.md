@@ -1,4 +1,6 @@
-# frontend
+# Fintrack Frontend
+<p>Fintrack is a finance app that allows a user to manage their finances and recieve tips and tricks on how to manage money better.</p>
+<p><strong>THIS PROJECT IS NOT COMPLETE!</strong></p>
 
 ## Project setup
 ```
@@ -9,16 +11,3 @@ npm install
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

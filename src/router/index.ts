@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Login from "@/components/auth/Login.vue";
 import Register from "@/components/auth/Register.vue";
 import Questions from "@/components/Questions.vue";
+import Dashboard from "@/components/Dashboard.vue";
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     name: "questions",
     component: Questions,
   },
+  {
+    path: "/dashboard",
+    name: "dashboard",
+    component: Dashboard,
+  }
 ];
 
 const router = createRouter({

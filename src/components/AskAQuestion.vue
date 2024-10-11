@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-gray-700 rounded-lg p-6 shadow-lg mt-8 flex flex-col items-center justify-center"
+    class="bg-zinc-800 rounded-lg p-6 shadow-lg mt-4 flex flex-col items-center justify-center"
   >
     <h2 class="text-2xl font-semibold mb-4 text-center">
       Ask our finance AI helper a question
@@ -9,12 +9,12 @@
       <textarea
         v-model="question"
         placeholder="Type your question here..."
-        class="w-full p-4 rounded-md border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="w-full p-4 rounded-md border border-gray-600 bg-zinc-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
         rows="4"
       ></textarea>
       <button
         type="submit"
-        class="mt-4 w-full py-2 px-4 bg-gray-900 text-white rounded-md hover:bg-gray-800 transition"
+        class="mt-4 w-full py-2 px-4 bg-green-500 text-white rounded-md hover:bg-gray-800 transition"
       >
         Ask
       </button>

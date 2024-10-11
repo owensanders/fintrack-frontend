@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-700 rounded-lg p-6 shadow-lg mt-8">
+  <div class="bg-zinc-800 rounded-lg p-6 shadow-lg mt-4">
     <h2 class="text-2xl font-semibold mb-4 text-center">Financial Goals</h2>
     <ul class="space-y-4">
       <li v-for="(goal, index) in financialGoals" :key="index">

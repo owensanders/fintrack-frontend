@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-gray-700 rounded-lg p-6 shadow-lg flex flex-col items-center justify-center"
+    class="bg-zinc-800 rounded-lg p-6 shadow-lg flex flex-col items-center justify-center"
   >
     <h2 class="text-2xl font-semibold mb-4 text-center">Finance Tips</h2>
     <div
@@ -10,13 +10,13 @@
     </div>
     <div class="mt-4 flex justify-center">
       <button
-        class="px-4 py-2 bg-gray-900 rounded-md hover:bg-gray-700 transition"
+        class="px-4 py-2 bg-green-500 rounded-md hover:bg-gray-700 transition"
         @click="prevTip"
       >
         Previous
       </button>
       <button
-        class="px-4 py-2 bg-gray-900 rounded-md ml-2 hover:bg-gray-700 transition"
+        class="px-4 py-2 bg-green-500 rounded-md ml-2 hover:bg-gray-700 transition"
         @click="nextTip"
       >
         Next

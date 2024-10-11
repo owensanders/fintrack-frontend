@@ -1,13 +1,15 @@
 <template>
   <div class="mb-4">
-    <label :for="id" class="font-medium">{{ label }}</label>
+    <label :for="id" class="font-medium"
+      >{{ label }} <span v-if="isRequired" class="text-red-500">*</span></label
+    >
     <input
       :type="type"
       :id="id"
       :value="modelValue"
       @input="updateValue"
       required
-      class="mt-1 w-full border-gray-600 bg-gray-700 text-white rounded-md shadow-sm p-1"
+      class="mt-1 w-full border-gray-600 bg-zinc-700 text-white rounded-md shadow-sm p-1"
     />
   </div>
 </template>
@@ -20,6 +22,7 @@ const props = defineProps<{
   id: string;
   modelValue: string | number | null;
   type: string;
+  isRequired?: boolean;
 }>();
 
 const emit = defineEmits<{

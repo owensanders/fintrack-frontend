@@ -4,7 +4,7 @@
       FinTrack <i class="fa-solid fa-chart-pie"></i>
     </h1>
     <div
-      class="bg-gray-800 shadow-md rounded-lg p-6 max-w-md mx-5 my-5 md:mx-auto md:w-full md:p-8"
+      class="bg-zinc-800 shadow-md rounded-lg p-6 max-w-md mx-5 my-5 md:mx-auto md:w-full md:p-8"
     >
       <h2 class="text-2xl font-semibold mb-6 text-center">Finance Questions</h2>
       <p class="text-center md:text-left">
@@ -36,7 +36,7 @@
           <button
             type="button"
             @click="addExpense"
-            class="mt-4 w-full flex items-center justify-center py-2 px-4 bg-gray-900 hover:bg-gray-700 text-white font-semibold rounded-md shadow transition duration-150"
+            class="mt-4 w-full flex items-center justify-center py-2 px-4 bg-green-500 hover:bg-gray-700 text-white font-semibold rounded-md shadow transition duration-150"
           >
             <i class="fa-solid fa-plus mr-2"></i> Add Expense
           </button>
@@ -53,7 +53,7 @@
         </ul>
         <button
           type="submit"
-          class="w-full py-2 px-4 bg-gray-900 hover:bg-gray-700 text-white font-semibold rounded-md shadow transition duration-150 mt-5"
+          class="w-full py-2 px-4 bg-green-500 hover:bg-gray-700 text-white font-semibold rounded-md shadow transition duration-150 mt-5"
         >
           Submit
         </button>

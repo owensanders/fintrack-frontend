@@ -3,6 +3,8 @@ import Login from "@/components/auth/Login.vue";
 import Register from "@/components/auth/Register.vue";
 import Questions from "@/components/Questions.vue";
 import Dashboard from "@/components/Dashboard.vue";
+import MyProfile from "@/components/MyProfile.vue";
+import ManageExpenses from "@/components/ManageExpenses.vue";
 
 const routes = [
   {
@@ -29,7 +31,17 @@ const routes = [
     path: "/dashboard",
     name: "dashboard",
     component: Dashboard,
-  }
+  },
+  {
+    path: "/my-profile",
+    name: "my-profile",
+    component: MyProfile,
+  },
+  {
+    path: "/manage-expenses",
+    name: "manage-expenses",
+    component: ManageExpenses,
+  },
 ];
 
 const router = createRouter({

@@ -24,7 +24,7 @@
           <router-link to="/dashboard">Dashboard</router-link>
         </li>
         <li>
-          <router-link to="/profile">My Profile</router-link>
+          <router-link to="/my-profile">My Profile</router-link>
         </li>
         <li>
           <router-link to="/manage-expenses">Manage Expenses</router-link>

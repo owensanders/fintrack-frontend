@@ -4,7 +4,9 @@ import Register from "@/components/auth/Register.vue";
 import Questions from "@/components/Questions.vue";
 import Dashboard from "@/components/Dashboard.vue";
 import MyProfile from "@/components/MyProfile.vue";
-import ManageExpenses from "@/components/ManageExpenses.vue";
+import ManageFinances from "@/components/ManageFinances.vue";
+import SavingsAndInvestments from "@/components/SavingsAndInvestments.vue";
+import GetTips from "@/components/GetTips.vue";
 
 const routes = [
   {
@@ -38,9 +40,19 @@ const routes = [
     component: MyProfile,
   },
   {
-    path: "/manage-expenses",
-    name: "manage-expenses",
-    component: ManageExpenses,
+    path: "/manage-finances",
+    name: "manage-finances",
+    component: ManageFinances,
+  },
+  {
+    path: "/savings-investments",
+    name: "savings-investments",
+    component: SavingsAndInvestments,
+  },
+  {
+    path: "/get-tips",
+    name: "get-tips",
+    component: GetTips,
   },
 ];
 

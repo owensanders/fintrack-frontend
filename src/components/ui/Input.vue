@@ -1,8 +1,8 @@
 <template>
   <div class="mb-4">
-    <label :for="id" class="font-medium"
-      >{{ label }} <span v-if="isRequired" class="text-red-500">*</span></label
-    >
+    <label :for="id" class="font-medium">
+      {{ label }} <span v-if="isRequired" class="text-red-500">*</span>
+    </label>
     <input
       :type="type"
       :id="id"
@@ -20,13 +20,13 @@ import { defineProps, defineEmits } from "vue";
 const props = defineProps<{
   label: string;
   id: string;
-  modelValue: string | number | null;
+  modelValue: string | number | null | undefined;
   type: string;
   isRequired?: boolean;
 }>();
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: string): void;
+  (e: "update:modelValue", value: string | number | null): void;
 }>();
 
 const updateValue = (event: Event) => {

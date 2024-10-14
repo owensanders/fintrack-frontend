@@ -26,13 +26,26 @@
       <li
         :class="{
           'bg-zinc-800 rounded-lg p-3 text-sm text-green-500':
-            isActiveRoute('/manage-expenses'),
+            isActiveRoute('/manage-finances'),
         }"
         class="hover:bg-zinc-800 p-3 text-sm rounded-lg transition duration-300"
       >
-        <router-link to="/manage-expenses"
+        <router-link to="/manage-finances"
           ><i class="fa-regular fa-money-bill-1 mr-3"></i> Manage
-          Expenses</router-link
+          Finances</router-link
+        >
+      </li>
+      <li
+        :class="{
+          'bg-zinc-800 rounded-lg p-3 text-sm text-green-500': isActiveRoute(
+            '/savings-investments'
+          ),
+        }"
+        class="hover:bg-zinc-800 p-3 text-sm rounded-lg transition duration-300"
+      >
+        <router-link to="/savings-investments"
+          ><i class="fa-solid fa-arrow-up-right-dots mr-3"></i> Savings And
+          Investments</router-link
         >
       </li>
       <li

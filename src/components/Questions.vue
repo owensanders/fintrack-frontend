@@ -36,12 +36,12 @@
           <button
             type="button"
             @click="addExpense"
-            class="mt-4 w-full flex items-center justify-center py-2 px-4 bg-green-500 hover:bg-gray-700 text-white font-semibold rounded-md shadow transition duration-150"
+            class="mt-3 w-full flex items-center justify-center py-2 px-4 bg-green-500 hover:bg-gray-700 text-white font-semibold rounded-md shadow transition duration-150"
           >
             <i class="fa-solid fa-plus mr-2"></i> Add Expense
           </button>
         </div>
-        <ul class="mt-4">
+        <ul class="mt-3">
           <li
             v-for="(expense, index) in expenses"
             :key="index"
@@ -53,7 +53,7 @@
         </ul>
         <button
           type="submit"
-          class="w-full py-2 px-4 bg-green-500 hover:bg-gray-700 text-white font-semibold rounded-md shadow transition duration-150 mt-5"
+          class="w-full py-2 px-4 bg-green-500 hover:bg-gray-700 text-white font-semibold rounded-md shadow transition duration-150 mt-3"
         >
           Submit
         </button>

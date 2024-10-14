@@ -3,9 +3,28 @@
   <div class="flex">
     <SideBar />
     <div class="flex-grow p-8 bg-black text-white">
-      <h1 class="text-3xl mb-3">Manage Expenses</h1>
-      <div class="bg-zinc-800 rounded-lg p-6">
-        <form @submit.prevent="handleSaveExpense">
+      <h1 class="text-3xl mb-3">Manage Finances</h1>
+      <div
+        class="bg-zinc-800 rounded-lg p-6 flex flex-col justify-center items-center md:block"
+      >
+        <h1 class="text-2xl mb-3">Income</h1>
+        <form class="md:w-1/2">
+          <Input
+            label="Monthly Income (£)"
+            id="monthly-income"
+            type="number"
+            v-model="monthlyIncome"
+            :is-required="true"
+          />
+          <button
+            type="submit"
+            class="w-full bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-md mt-4"
+          >
+            Update Income
+          </button>
+        </form>
+        <h1 class="text-2xl mb-3 mt-7">Expenses</h1>
+        <form class="md:w-1/2" @submit.prevent="handleSaveExpense">
           <Input
             label="Expense Name"
             id="name"
@@ -28,7 +47,7 @@
           </button>
         </form>
         <div class="mt-8">
-          <h2 class="text-2xl mb-4">Expense List</h2>
+          <h2 class="text-2xl mb-4 text-center md:text-start">Expense List</h2>
           <ul>
             <li
               v-for="(expense, index) in expenses"
@@ -68,6 +87,7 @@ import SideBar from "./ui/SideBar.vue";
 import Input from "./ui/Input.vue";
 import { Expense } from "@/interfaces/Expense";
 
+const monthlyIncome = ref<number | null>(null);
 const expenses = ref<Expense[]>([
   { name: "Rent", amount: 1200 },
   { name: "Groceries", amount: 300 },

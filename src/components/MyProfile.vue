@@ -33,7 +33,7 @@
           <div class="flex justify-center md:justify-start">
             <button
               type="submit"
-              class="w-full md:w-1/2 py-2 px-4 bg-green-500 hover:bg-gray-700 text-white font-semibold rounded-md shadow transition duration-150"
+              class="w-full py-2 px-4 mt-3 bg-green-500 hover:bg-gray-700 text-white font-semibold rounded-md shadow transition duration-150"
             >
               Update profile
             </button>

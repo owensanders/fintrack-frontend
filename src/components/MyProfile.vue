@@ -5,7 +5,7 @@
     <div class="flex-grow p-8 bg-black text-white">
       <h1 class="text-3xl mb-3">My Profile</h1>
       <div class="bg-zinc-800 rounded-lg p-6">
-        <form @submit.prevent="handleUpdate" class="md:w-1/2">
+        <form @submit.prevent="handleUpdate">
           <Input
             label="Email"
             id="email"

@@ -51,12 +51,12 @@
       <li
         :class="{
           'bg-zinc-800 rounded-lg p-3 text-sm text-green-500':
-            isActiveRoute('/get-tips'),
+            isActiveRoute('/budget-manager'),
         }"
         class="hover:bg-zinc-800 p-3 text-sm rounded-lg transition duration-300"
       >
-        <router-link to="/get-tips"
-          ><i class="fa-solid fa-lightbulb mr-3"></i> Get Tips</router-link
+        <router-link to="/budget-manager"
+          ><i class="fa-solid fa-lightbulb mr-3"></i> Budget Manager</router-link
         >
       </li>
       <li

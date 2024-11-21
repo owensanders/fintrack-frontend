@@ -6,7 +6,7 @@ import Dashboard from "@/components/Dashboard.vue";
 import MyProfile from "@/components/MyProfile.vue";
 import ManageFinances from "@/components/ManageFinances.vue";
 import SavingsAndInvestments from "@/components/SavingsAndInvestments.vue";
-import GetTips from "@/components/GetTips.vue";
+import BudgetManager from "@/components/BudgetManager.vue";
 
 const routes = [
   {
@@ -50,9 +50,9 @@ const routes = [
     component: SavingsAndInvestments,
   },
   {
-    path: "/get-tips",
-    name: "get-tips",
-    component: GetTips,
+    path: "/budget-manager",
+    name: "budget-manager",
+    component: BudgetManager,
   },
 ];
 

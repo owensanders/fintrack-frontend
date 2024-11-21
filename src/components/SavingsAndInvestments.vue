@@ -5,42 +5,44 @@
     <div class="flex-grow p-8 bg-black text-white">
       <h1 class="text-3xl mb-3">Savings and Investments</h1>
       <div class="bg-zinc-800 rounded-lg p-6">
-        <form class="md:w-1/2" @submit.prevent="handleSavePot">
+        <form @submit.prevent="handleSavePot">
           <Input
-            label="Pot Name"
-            id="pot-name"
-            type="text"
-            v-model="newPot.name"
-            :is-required="true"
+              label="Pot Name"
+              id="pot-name"
+              type="text"
+              v-model="newPot.name"
+              :is-required="true"
           />
           <Input
-            label="Amount"
-            id="pot-amount"
-            type="number"
-            v-model="newPot.amount"
-            :is-required="true"
+              label="Amount"
+              id="pot-amount"
+              type="number"
+              v-model="newPot.amount"
+              :is-required="true"
           />
           <Input
-            label="Goal (Optional)"
-            id="pot-goal"
-            type="number"
-            v-model="newPot.goal"
-            :is-required="false"
+              label="Goal (Optional)"
+              id="pot-goal"
+              type="number"
+              v-model="newPot.goal"
+              :is-required="false"
           />
           <button
-            type="submit"
-            class="w-full bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-md mt-4"
+              type="submit"
+              class="w-full bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-md mt-4"
           >
             {{ editingPot ? "Update Pot" : "Add Pot" }}
           </button>
         </form>
-        <div class="mt-8">
+      </div>
+      <div class="bg-zinc-800 rounded-lg p-6 mt-4">
+        <div>
           <h2 class="text-2xl mb-4">Pot List</h2>
           <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <li
               v-for="(pot, index) in pots"
               :key="index"
-              class="bg-gray-700 p-4 rounded flex justify-between items-center"
+              class="bg-zinc-700 p-4 rounded flex justify-between items-center"
             >
               <div>
                 <h3 class="font-semibold">{{ pot.name }}</h3>
@@ -50,13 +52,13 @@
               <div class="flex space-x-4">
                 <button
                   @click="editPot(index)"
-                  class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded"
+                  class="bg-green-500 hover:bg-gray-800 transition text-white px-4 py-2 rounded"
                 >
                   Edit
                 </button>
                 <button
                   @click="deletePot(index)"
-                  class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded"
+                  class="border-2 border-green-500 hover:border-gray-800 transition text-white px-4 py-2 rounded"
                 >
                   Delete
                 </button>

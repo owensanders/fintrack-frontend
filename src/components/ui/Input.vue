@@ -4,12 +4,13 @@
       {{ label }} <span v-if="isRequired" class="text-red-500">*</span>
     </label>
     <input
-      :type="type"
-      :id="id"
-      :value="modelValue"
-      @input="updateValue"
-      required
-      class="mt-1 w-full border-gray-600 bg-zinc-700 text-white rounded-md shadow-sm p-1"
+        :type="type"
+        :id="id"
+        :value="modelValue"
+        @input="updateValue"
+        required
+        :class="['mt-1', 'w-full', 'border-gray-600', 'bg-zinc-700', 'text-white', 'rounded-md', 'shadow-sm', 'p-1', inputClasses]"
+        :placeholder="placeholder"
     />
   </div>
 </template>
@@ -18,11 +19,13 @@
 import { defineProps, defineEmits } from "vue";
 
 const props = defineProps<{
-  label: string;
+  label?: string;
   id: string;
   modelValue: string | number | null | undefined;
   type: string;
   isRequired?: boolean;
+  placeholder?: string;
+  inputClasses?: string;
 }>();
 
 const emit = defineEmits<{

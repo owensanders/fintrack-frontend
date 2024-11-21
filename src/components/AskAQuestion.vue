@@ -3,7 +3,7 @@
     class="bg-zinc-800 rounded-lg p-6 shadow-lg mt-4 flex flex-col items-center justify-center"
   >
     <h2 class="text-2xl font-semibold mb-4 text-center">
-      Ask our finance AI a question
+      Got a question? Ask our built in AI helper for a answer.
     </h2>
     <form @submit.prevent="submitQuestion" class="w-full">
       <textarea

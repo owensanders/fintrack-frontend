@@ -10,11 +10,12 @@
         <h1 class="text-2xl mb-3">Income</h1>
         <form>
           <Input
-              placeholder="Monthly Income (£)"
+              label="Monthly Income (£)"
               id="monthly-income"
               type="number"
               v-model="monthlyIncome"
               input-classes="p-3"
+              :is-required="true"
           />
           <button
               type="submit"
@@ -26,18 +27,20 @@
         <h1 class="text-2xl mb-3 mt-7">Expenses</h1>
         <form @submit.prevent="handleSaveExpense">
           <Input
-              placeholder="Expense Name"
+              label="Expense Name"
               id="name"
               type="text"
               v-model="newExpense.name"
               input-classes="p-3"
+              :is-required="true"
           />
           <Input
-              placeholder="Amount"
+              label="Amount"
               id="amount"
               type="number"
               v-model="newExpense.amount"
               input-classes="p-3"
+              :is-required="true"
           />
           <button
               type="submit"

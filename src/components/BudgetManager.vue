@@ -3,68 +3,78 @@
   <div class="flex">
     <SideBar />
     <div class="flex-grow p-8 bg-black text-white">
-      <h1 class="text-3xl mb-3">Budget Manager</h1>
+      <h1 class="text-3xl mb-6">Budget Manager</h1>
       <div class="bg-zinc-800 rounded-lg p-6">
-        <div class="mb-6">
-          <div class="mb-3">
-            <h2 class="text-lg">Monthly Income: £5000</h2>
+        <h2 class="text-2xl mb-4">Budget Overview</h2>
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-lg font-medium">Monthly Income</h3>
+            <p class="text-2xl font-semibold">£5000</p>
           </div>
           <div>
-            <h2 class="text-lg">Total Expenses: £2250</h2>
+            <h3 class="text-lg font-medium">Total Expenses</h3>
+            <p class="text-2xl font-semibold">£2250</p>
           </div>
         </div>
-
         <div class="border-t border-zinc-700 pt-4 mt-6">
-          <h2 class="text-lg mb-2">Expenses Breakdown</h2>
-          <ul class="space-y-2">
-            <li class="flex justify-between">
-              <span>Rent</span><span>£1500</span>
-            </li>
-            <li class="flex justify-between">
-              <span>Utilities</span><span>£200</span>
-            </li>
-            <li class="flex justify-between">
-              <span>Groceries</span><span>£400</span>
-            </li>
-            <li class="flex justify-between">
-              <span>Transportation</span><span>£150</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="border-t border-zinc-700 mt-6 pt-4">
-          <h2 class="text-lg">Remaining:</h2>
-          <p class="text-xl font-semibold">£2750</p>
+          <h3 class="text-lg font-medium">Remaining</h3>
+          <p class="text-2xl font-bold text-green-500">£2750</p>
         </div>
       </div>
-
       <div class="bg-zinc-800 rounded-lg p-6 mt-6">
-        <h1 class="text-2xl mb-3">Allocations</h1>
-        <div class="flex space-x-4">
-          <Input
-              id="allocation-name"
-              v-model="allocationName"
-              label="Allocation Name"
-              type="text"
-              placeholder="Enter allocation name"
-              input-classes="p-2"
-          />
-          <Input
-              id="allocation-amount"
-              v-model="allocationAmount"
-              label="Amount"
-              type="number"
-              placeholder="Enter amount"
-              input-classes="p-2"
-          />
-          <button
-              class="w-1/3 bg-green-500 hover:bg-gray-800 transition text-white font-semibold rounded-md mt-4"
-              @click="allocateFunds">
-            Allocate
-          </button>
-        </div>
-        <div class="mt-4">
-          <h3 class="text-lg">Unallocated: £2750</h3>
+        <h2 class="text-2xl mb-4">Expenses Breakdown</h2>
+        <ul class="divide-y divide-zinc-700">
+          <li class="py-3 flex justify-between">
+            <span>Rent</span><span class="font-semibold">£1500</span>
+          </li>
+          <li class="py-3 flex justify-between">
+            <span>Utilities</span><span class="font-semibold">£200</span>
+          </li>
+          <li class="py-3 flex justify-between">
+            <span>Groceries</span><span class="font-semibold">£400</span>
+          </li>
+          <li class="py-3 flex justify-between">
+            <span>Transportation</span><span class="font-semibold">£150</span>
+          </li>
+        </ul>
+      </div>
+      <div class="bg-zinc-800 rounded-lg p-6 mt-6">
+        <h2 class="text-2xl mb-4">Left Over Allocations</h2>
+        <form @submit.prevent="allocateFunds" class="space-y-4">
+          <div>
+            <Input
+                id="allocation-name"
+                v-model="allocationName"
+                label="Allocation Name"
+                type="text"
+                placeholder="Enter allocation name"
+                input-classes="p-2 w-full"
+                :is-required="true"
+            />
+          </div>
+          <div>
+            <Input
+                id="allocation-amount"
+                v-model="allocationAmount"
+                label="Amount"
+                type="number"
+                placeholder="Enter amount"
+                input-classes="p-2 w-full"
+                :is-required="true"
+            />
+          </div>
+          <div>
+            <button
+                type="submit"
+                class="bg-green-500 hover:bg-green-600 transition text-white font-semibold rounded-md px-4 py-2 w-full sm:w-auto"
+            >
+              Allocate Funds
+            </button>
+          </div>
+        </form>
+        <div class="mt-6">
+          <h3 class="text-lg font-medium">Unallocated</h3>
+          <p class="text-2xl font-semibold">£2750</p>
         </div>
       </div>
     </div>

@@ -1,14 +1,13 @@
 <template>
   <div class="mb-4">
     <label :for="id" class="font-medium">
-      {{ label }} <span v-if="isRequired" class="text-red-500">*</span>
+      <span v-if="isRequired" class="text-red-500">* </span>{{ label }}
     </label>
     <input
         :type="type"
         :id="id"
         :value="modelValue"
         @input="updateValue"
-        required
         :class="['mt-1', 'w-full', 'border-gray-600', 'bg-zinc-700', 'text-white', 'rounded-md', 'shadow-sm', 'p-1', inputClasses]"
         :placeholder="placeholder"
     />

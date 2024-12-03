@@ -59,13 +59,13 @@
             <li
               v-for="(expense, index) in expenses"
               :key="index"
-              class="bg-zinc-700 p-4 rounded mb-4 flex justify-between items-center"
+              class="bg-zinc-700 p-4 rounded mb-4 md:flex justify-between items-center"
             >
               <div>
                 <h3 class="font-semibold">{{ expense.name }}</h3>
                 <p>Amount: £{{ expense.amount }}</p>
               </div>
-              <div class="flex space-x-4">
+              <div class="flex space-x-4 mt-1 md:mt-0">
                 <button
                   @click="editExpense(index)"
                   class="bg-green-500 hover:bg-gray-800 transition text-white px-4 py-2 rounded"

@@ -60,24 +60,40 @@
         >
       </li>
       <li
-        :class="{
+          :class="{
           'bg-zinc-800 rounded-lg p-3 text-sm': isActiveRoute('/logout'),
         }"
-        class="hover:bg-zinc-800 p-3 text-sm rounded-lg transition duration-300"
+          class="hover:bg-zinc-800 p-3 text-sm rounded-lg transition duration-300"
       >
-        <router-link to="/logout"
-          ><i class="fa-solid fa-right-from-bracket mr-3"></i>
-          Logout</router-link
-        >
+        <router-link to="/logout" @click.prevent="handleLogout">
+          <i class="fa-solid fa-right-from-bracket mr-3"></i> Logout
+        </router-link>
       </li>
     </ul>
   </aside>
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from "@/stores/auth";
+import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
+import { logout } from "@/services/authService";
 
 const route = useRoute();
+const router = useRouter();
+const authStore = useAuthStore();
+
+const handleLogout = async () => {
+  try {
+    await logout();
+    authStore.logout();
+
+    router.push("/login");
+  } catch (error) {
+    console.error("Logout failed", error);
+  }
+};
+
 const isActiveRoute = (path: string): boolean => {
   return route.path === path;
 };

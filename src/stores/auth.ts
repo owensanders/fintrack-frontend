@@ -1,17 +1,17 @@
 import { defineStore } from 'pinia';
 import { ref, onMounted } from 'vue';
-import {User} from "@/interfaces/User";
+import { User } from "@/interfaces/User";
 
 export const useAuthStore = defineStore('auth', () => {
-    const isAuthenticated = ref<boolean>(false);
+    const token = ref<string | null>(null);
     const user = ref<User | null>(null);
 
     onMounted(() => {
-        const storedAuthState = sessionStorage.getItem('isAuthenticated');
+        const storedToken = sessionStorage.getItem('token');
         const storedUser = sessionStorage.getItem('user');
 
-        if (storedAuthState) {
-            isAuthenticated.value = JSON.parse(storedAuthState);
+        if (storedToken) {
+            token.value = storedToken;
         }
 
         if (storedUser) {
@@ -19,24 +19,24 @@ export const useAuthStore = defineStore('auth', () => {
         }
     });
 
-    const setAuthenticated = (value: boolean, userDetails: User) => {
-        isAuthenticated.value = value;
+    const setAuthenticated = (tokenValue: string, userDetails: User) => {
+        token.value = tokenValue;
         user.value = userDetails;
 
-        sessionStorage.setItem('isAuthenticated', JSON.stringify(value));
+        sessionStorage.setItem('token', tokenValue);
         sessionStorage.setItem('user', JSON.stringify(userDetails));
     };
 
     const logout = () => {
-        isAuthenticated.value = false;
+        token.value = null;
         user.value = null;
 
-        sessionStorage.removeItem('isAuthenticated');
+        sessionStorage.removeItem('token');
         sessionStorage.removeItem('user');
     };
 
     return {
-        isAuthenticated,
+        token,
         user,
         setAuthenticated,
         logout,

@@ -35,9 +35,9 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/get-tips">Get Tips</router-link>
+          <router-link to="/budget-manager">Budget Manager</router-link>
         </li>
-        <li>
+        <li @click="handleLogout">
           <router-link to="/logout">Logout</router-link>
         </li>
       </ul>
@@ -47,6 +47,22 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { logout } from "@/services/authService";
+import { useAuthStore } from "@/stores/auth";
+import { useRouter } from "vue-router";
 
 const isMenuOpen = ref(false);
+const authStore = useAuthStore();
+const router = useRouter();
+
+const handleLogout = async () => {
+  try {
+    await logout();
+    authStore.logout();
+
+    router.push("/login");
+  } catch (error) {
+    console.error("Logout failed", error);
+  }
+};
 </script>

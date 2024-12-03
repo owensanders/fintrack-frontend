@@ -44,12 +44,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import Input from "@/components/ui/Input.vue";
-import axios from "axios";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
-import { User } from "@/interfaces/User";
-import { LoginRequest } from "@/interfaces/LoginRequest";
 import {LoginResponse} from "@/interfaces/LoginResponse";
+import apiClient from "@/services/axios";
+import { login } from "@/services/authService";
 
 const email = ref("");
 const password = ref("");
@@ -57,19 +56,15 @@ const router = useRouter();
 const authStore = useAuthStore();
 
 const handleLogin = async () => {
-  const loginData: LoginRequest = {
-    email: email.value,
-    password: password.value,
-  };
-
   try {
-    await axios.get("http://localhost:80/sanctum/csrf-cookie");
-    const response = await axios.post<LoginResponse>("http://localhost:80/login", loginData);
-    const userDetails: User = response.data.user;
-    authStore.setAuthenticated(true, userDetails);
+    await apiClient.get("/sanctum/csrf-cookie");
+    const response = await login<LoginResponse>(email.value, password.value);
+    const { token, user } = response.data;
+
+    authStore.setAuthenticated(token, user);
     router.push("/dashboard");
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 </script>

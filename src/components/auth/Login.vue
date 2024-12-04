@@ -46,7 +46,6 @@ import { ref } from "vue";
 import Input from "@/components/ui/Input.vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
-import { LoginResponse } from "@/interfaces/LoginResponse";
 import apiClient from "@/services/axios";
 import { login } from "@/services/authService";
 
@@ -58,7 +57,7 @@ const authStore = useAuthStore();
 const handleLogin = async () => {
   try {
     await apiClient.get("/sanctum/csrf-cookie");
-    const response = await login<LoginResponse>(email.value, password.value);
+    const response = await login(email.value, password.value);
     const { token, user } = response.data;
 
     authStore.setAuthenticated(token, user);

@@ -17,17 +17,9 @@
           :is-required="true"
         />
         <Input
-          label="First name"
-          id="first-name"
-          v-model="firstName"
-          type="text"
-          required
-          :is-required="true"
-        />
-        <Input
-          label="Last name"
-          id="last-name"
-          v-model="lastName"
+          label="Full name"
+          id="full-name"
+          v-model="name"
           type="text"
           required
           :is-required="true"
@@ -68,16 +60,36 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import Input from "@/components/ui/Input.vue";
+import apiClient from "@/services/axios";
+import { register } from "@/services/authService";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
+import { RegisterData } from "@/interfaces/RegisterData";
 
 const email = ref("");
-const firstName = ref("");
-const lastName = ref("");
+const name = ref("");
 const password = ref("");
 const confirmPassword = ref("");
+const router = useRouter();
+const authStore = useAuthStore();
 
-const handleRegister = () => {
-  console.log(
-    `Email: ${email.value}, First name: ${firstName.value}, Last name: ${lastName.value}, Password: ${password.value}, Confirm password: ${confirmPassword.value}`
-  );
+const handleRegister = async() => {
+  try {
+    const registerData: RegisterData = {
+      name: name.value,
+      email: email.value,
+      password: password.value,
+      password_confirmation: confirmPassword.value,
+    };
+
+    await apiClient.get("/sanctum/csrf-cookie");
+    const response = await register(registerData);
+    const { token, user } = response.data;
+
+    authStore.setAuthenticated(token, user);
+    router.push("/dashboard");
+  } catch (error) {
+    console.error(error);
+  }
 };
 </script>

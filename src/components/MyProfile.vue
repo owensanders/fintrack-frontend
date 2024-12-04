@@ -15,18 +15,10 @@
             :is-required="true"
           />
           <Input
-            label="First name"
-            id="first-name"
+            label="Name"
+            id="name"
             type="text"
-            v-model="firstName"
-            required
-            :is-required="true"
-          />
-          <Input
-            label="Last name"
-            id="last-name"
-            type="text"
-            v-model="lastName"
+            v-model="name"
             required
             :is-required="true"
           />
@@ -51,12 +43,11 @@ import Input from "./ui/Input.vue";
 import { ref } from "vue";
 
 const email = ref("");
-const firstName = ref("");
-const lastName = ref("");
+const name = ref("");
 
 const handleUpdate = () => {
   console.log(
-    `Email: ${email.value}, First name: ${firstName.value}, Last name: ${lastName.value}`
+    `Email: ${email.value}, First name: ${name.value}`
   );
 };
 </script>

@@ -65,7 +65,7 @@
         }"
           class="hover:bg-zinc-800 p-3 text-sm rounded-lg transition duration-300"
       >
-        <router-link to="/logout" @click.prevent="handleLogout">
+        <router-link to="/" @click.prevent="handleLogout">
           <i class="fa-solid fa-right-from-bracket mr-3"></i> Logout
         </router-link>
       </li>

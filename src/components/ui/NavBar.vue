@@ -38,7 +38,7 @@
           <router-link to="/budget-manager">Budget Manager</router-link>
         </li>
         <li @click="handleLogout">
-          <router-link to="/logout">Logout</router-link>
+          <router-link to="/">Logout</router-link>
         </li>
       </ul>
     </div>

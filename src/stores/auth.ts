@@ -1,23 +1,22 @@
 import { defineStore } from 'pinia';
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { User } from "@/interfaces/User";
 
 export const useAuthStore = defineStore('auth', () => {
     const token = ref<string | null>(null);
     const user = ref<User | null>(null);
 
-    onMounted(() => {
+    const initialiseAuthState = () => {
         const storedToken = sessionStorage.getItem('token');
         const storedUser = sessionStorage.getItem('user');
 
-        if (storedToken) {
+        if (storedToken && storedUser) {
             token.value = storedToken;
-        }
-
-        if (storedUser) {
             user.value = JSON.parse(storedUser);
         }
-    });
+    };
+
+    initialiseAuthState();
 
     const setAuthenticated = (tokenValue: string, userDetails: User) => {
         token.value = tokenValue;

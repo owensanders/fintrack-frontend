@@ -8,6 +8,15 @@
     >
       <h2 class="text-2xl font-semibold mb-6 text-center">Login</h2>
       <form @submit.prevent="handleLogin">
+        <ul v-if="Object.keys(errors).length > 0" class="mb-4 text-red-600 text-center">
+          <li v-for="(errorMessages, field) in errors" :key="field">
+            <ul>
+              <li v-for="(message, index) in errorMessages" :key="`${field}-error-${index}`">
+                {{ message }}
+              </li>
+            </ul>
+          </li>
+        </ul>
         <Input
             label="Email"
             id="email"
@@ -42,28 +51,39 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import Input from "@/components/ui/Input.vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import apiClient from "@/services/axios";
 import { login } from "@/services/authService";
+import { resetFormErrors } from "@/utils/formHelper";
 
-const email = ref("");
-const password = ref("");
 const router = useRouter();
 const authStore = useAuthStore();
+const email = ref("");
+const password = ref("");
+const errors = reactive({
+  email: [],
+  password: []
+});
 
 const handleLogin = async () => {
   try {
+    resetFormErrors(errors);
     await apiClient.get("/sanctum/csrf-cookie");
     const response = await login(email.value, password.value);
     const { token, user } = response.data;
-
     authStore.setAuthenticated(token, user);
     router.push("/dashboard");
   } catch (error) {
-    console.error(error);
+    if (error.response && error.response.status === 422) {
+      Object.keys(error.response.data.errors).forEach((key) => {
+        errors[key] = error.response.data.errors[key];
+      })
+    } else {
+      console.error(error);
+    }
   }
 };
 </script>

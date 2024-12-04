@@ -46,7 +46,7 @@ import { ref } from "vue";
 import Input from "@/components/ui/Input.vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
-import {LoginResponse} from "@/interfaces/LoginResponse";
+import { LoginResponse } from "@/interfaces/LoginResponse";
 import apiClient from "@/services/axios";
 import { login } from "@/services/authService";
 

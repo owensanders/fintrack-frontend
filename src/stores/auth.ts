@@ -26,6 +26,11 @@ export const useAuthStore = defineStore('auth', () => {
         sessionStorage.setItem('user', JSON.stringify(userDetails));
     };
 
+    const setUser = (userDetails: User) => {
+        user.value = userDetails;
+        sessionStorage.setItem('user', JSON.stringify(userDetails));
+    }
+
     const logout = () => {
         token.value = null;
         user.value = null;
@@ -38,6 +43,8 @@ export const useAuthStore = defineStore('auth', () => {
         token,
         user,
         setAuthenticated,
+        setUser,
         logout,
+        initialiseAuthState,
     };
 });

@@ -8,7 +8,7 @@
         :id="id"
         :value="modelValue"
         @input="updateValue"
-        :class="['mt-1', 'w-full', 'border-gray-600', 'bg-zinc-700', 'text-white', 'rounded-md', 'shadow-sm', 'p-1', inputClasses]"
+        :class="['mt-1', 'w-full', 'border-gray-600', 'bg-zinc-700', 'text-white', 'rounded-md', 'shadow-sm', 'p-2', inputClasses]"
         :placeholder="placeholder"
     />
   </div>

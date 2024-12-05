@@ -47,7 +47,6 @@
                 v-model="allocationName"
                 label="Allocation Name"
                 type="text"
-                placeholder="Enter allocation name"
                 input-classes="p-2 w-full"
                 :is-required="true"
             />
@@ -58,7 +57,6 @@
                 v-model="allocationAmount"
                 label="Amount"
                 type="number"
-                placeholder="Enter amount"
                 input-classes="p-2 w-full"
                 :is-required="true"
             />

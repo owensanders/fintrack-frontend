@@ -1,8 +1,6 @@
+import { User } from "@/types/User";
+
 export type AuthenticatedResponse = {
     token: string;
-    user: {
-        id: number;
-        name: string;
-        email: string;
-    };
+    user: User;
 };

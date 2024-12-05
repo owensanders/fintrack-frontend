@@ -31,7 +31,6 @@
               id="name"
               type="text"
               v-model="newExpense.name"
-              input-classes="p-3"
               :is-required="true"
           />
           <Input
@@ -39,7 +38,6 @@
               id="amount"
               type="number"
               v-model="newExpense.amount"
-              input-classes="p-3"
               :is-required="true"
           />
           <button

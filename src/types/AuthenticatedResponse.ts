@@ -1,4 +1,4 @@
-export type LoginResponse = {
+export type AuthenticatedResponse = {
     token: string;
     user: {
         id: number;

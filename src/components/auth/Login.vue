@@ -8,15 +8,7 @@
     >
       <h2 class="text-2xl font-semibold mb-6 text-center">Login</h2>
       <form @submit.prevent="handleLogin">
-        <ul v-if="Object.keys(errors).length > 0" class="mb-4 text-red-600 text-center">
-          <li v-for="(errorMessages, field) in errors" :key="field">
-            <ul>
-              <li v-for="(message, index) in errorMessages" :key="`${field}-error-${index}`">
-                {{ message }}
-              </li>
-            </ul>
-          </li>
-        </ul>
+        <FormErrors :errors="errors" />
         <Input
             label="Email"
             id="email"
@@ -58,8 +50,9 @@ import { useAuthStore } from "@/stores/auth";
 import apiClient from "@/services/axios";
 import { login } from "@/services/authService";
 import { resetFormErrors } from "@/utils/formHelper";
-import { LoginResponse } from "@/types/LoginResponse";
+import { AuthenticatedResponse } from "@/types/AuthenticatedResponse";
 import { Errors } from "@/types/Errors";
+import FormErrors from "@/components/ui/FormErrors.vue";
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -76,7 +69,7 @@ const handleLogin = async (): Promise<void> => {
 
     await apiClient.get("/sanctum/csrf-cookie");
     const response = await login(email.value, password.value);
-    const { token, user } = response.data as LoginResponse;
+    const { token, user } = response.data as AuthenticatedResponse;
 
     authStore.setAuthenticated(token, user);
     router.push("/dashboard");

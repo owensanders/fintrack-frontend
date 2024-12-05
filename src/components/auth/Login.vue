@@ -58,31 +58,35 @@ import { useAuthStore } from "@/stores/auth";
 import apiClient from "@/services/axios";
 import { login } from "@/services/authService";
 import { resetFormErrors } from "@/utils/formHelper";
+import { LoginResponse } from "@/types/LoginResponse";
+import { Errors } from "@/types/Errors";
 
 const router = useRouter();
 const authStore = useAuthStore();
 const email = ref("");
 const password = ref("");
-const errors = reactive({
+const errors = reactive<Errors>({
   email: [],
-  password: []
+  password: [],
 });
 
-const handleLogin = async () => {
+const handleLogin = async (): Promise<void> => {
   try {
     resetFormErrors(errors);
+
     await apiClient.get("/sanctum/csrf-cookie");
     const response = await login(email.value, password.value);
-    const { token, user } = response.data;
+    const { token, user } = response.data as LoginResponse;
+
     authStore.setAuthenticated(token, user);
     router.push("/dashboard");
-  } catch (error) {
-    if (error.response && error.response.status === 422) {
+  } catch (error: never) {
+    if (error?.response?.status === 422) {
       Object.keys(error.response.data.errors).forEach((key) => {
         errors[key] = error.response.data.errors[key];
-      })
+      });
     } else {
-      console.error(error);
+      console.error("An unexpected error occurred:", error);
     }
   }
 };

@@ -76,7 +76,7 @@ import { ref } from "vue";
 import NavBar from "./ui/NavBar.vue";
 import SideBar from "./ui/SideBar.vue";
 import Input from "./ui/Input.vue";
-import { Pot } from "@/interfaces/Pot";
+import { Pot } from "@/types/Pot";
 
 const pots = ref<Pot[]>([
   { name: "Emergency Fund", amount: 5000, goal: 10000 },

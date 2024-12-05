@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { FinanceGoal } from "@/interfaces/FinancialGoal";
+import { FinanceGoal } from "@/types/FinancialGoal";
 import { ref } from "vue";
 
 const financialGoals = ref<FinanceGoal[]>([

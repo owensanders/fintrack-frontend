@@ -64,7 +64,7 @@ import apiClient from "@/services/axios";
 import { register } from "@/services/authService";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
-import { RegisterData } from "@/interfaces/RegisterData";
+import { RegisterData } from "@/types/RegisterData";
 
 const email = ref("");
 const name = ref("");

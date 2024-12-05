@@ -92,7 +92,7 @@ import { ref } from "vue";
 import NavBar from "./ui/NavBar.vue";
 import SideBar from "./ui/SideBar.vue";
 import Input from "./ui/Input.vue";
-import { Expense } from "@/interfaces/Expense";
+import { Expense } from "@/types/Expense";
 
 const monthlyIncome = ref<number | null>(null);
 const expenses = ref<Expense[]>([

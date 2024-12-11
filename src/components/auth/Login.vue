@@ -72,7 +72,7 @@ const handleLogin = async (): Promise<void> => {
     const { token, user } = response.data as AuthenticatedResponse;
 
     authStore.setAuthenticated(token, user);
-    router.push("/dashboard");
+    await router.push("/dashboard");
   } catch (error: never) {
     if (error?.response?.status === 422) {
       Object.keys(error.response.data.errors).forEach((key) => {

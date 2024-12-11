@@ -5,8 +5,12 @@
     <div class="flex-grow p-8 bg-black text-white">
       <h1 class="text-3xl mb-3">My Profile</h1>
       <div class="bg-zinc-800 rounded-lg p-6">
+        <SuccessMessage
+            message="Profile updated successfully."
+            :success-message-visible="successMessageVisible"
+        />
         <form @submit.prevent="handleUpdate">
-          <FormErrors :errors="errors" />
+          <FormErrors :errors="errors"/>
           <Input
               label="Email"
               id="email"
@@ -19,6 +23,13 @@
               id="name"
               type="text"
               v-model="name"
+              :is-required="true"
+          />
+          <Input
+              label="Monthly Income (£)"
+              id="monthly-income"
+              type="number"
+              v-model="monthlyIncome"
               :is-required="true"
           />
           <div class="flex justify-center md:justify-start">
@@ -39,32 +50,40 @@
 import NavBar from "./ui/NavBar.vue";
 import SideBar from "./ui/SideBar.vue";
 import Input from "./ui/Input.vue";
-import { reactive, ref } from "vue";
-import { useAuthStore } from "@/stores/auth";
-import { Errors } from "@/types/Errors";
-import { resetFormErrors } from "@/utils/formHelper";
-import { updateProfile } from "@/services/userService";
-import { useRouter } from "vue-router";
+import {reactive, ref} from "vue";
+import {useAuthStore} from "@/stores/auth";
+import {Errors} from "@/types/Errors";
+import {resetFormErrors} from "@/utils/formHelper";
+import {updateProfile} from "@/services/userService";
+import {useRouter} from "vue-router";
 import FormErrors from "@/components/ui/FormErrors.vue";
+import SuccessMessage from "@/components/ui/SuccessMessage.vue";
 
 const authStore = useAuthStore();
 const router = useRouter();
 const email = ref<string | null>(authStore.user?.email || "");
 const name = ref<string | null>(authStore.user?.name || "");
+const monthlyIncome = ref<number | null>(authStore.user?.monthlyIncome || 0.00);
 const errors = reactive<Errors>({
   email: [],
   password: [],
+  monthly_income: [],
 });
+const successMessageVisible = ref(false);
 
-const handleUpdate = async() => {
+const handleUpdate = async () => {
   try {
     resetFormErrors(errors);
 
-    const response = await updateProfile(authStore.user?.id, name.value, email.value);
+    const response = await updateProfile(authStore.user?.id, name.value, email.value, monthlyIncome.value);
     const user = response.data;
 
     authStore.setUser(user);
-    router.push("/my-profile");
+    successMessageVisible.value = true;
+    setTimeout(() => {
+      successMessageVisible.value = false;
+    }, 2000);
+    await router.push("/my-profile");
   } catch (error: never) {
     if (error?.response?.status === 422) {
       Object.keys(error.response.data.errors).forEach((key) => {

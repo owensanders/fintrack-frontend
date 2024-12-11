@@ -27,7 +27,7 @@
           <router-link to="/my-profile">My Profile</router-link>
         </li>
         <li>
-          <router-link to="/manage-finances">Manage Finances</router-link>
+          <router-link to="/manage-expenses">Manage Expenses</router-link>
         </li>
         <li>
           <router-link to="/savings-investments">

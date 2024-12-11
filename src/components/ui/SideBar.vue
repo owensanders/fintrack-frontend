@@ -26,13 +26,13 @@
       <li
         :class="{
           'bg-zinc-800 rounded-lg p-3 text-sm text-green-500':
-            isActiveRoute('/manage-finances'),
+            isActiveRoute('/manage-expenses'),
         }"
         class="hover:bg-zinc-800 p-3 text-sm rounded-lg transition duration-300"
       >
-        <router-link to="/manage-finances"
+        <router-link to="/manage-expenses"
           ><i class="fa-regular fa-money-bill-1 mr-3"></i> Manage
-          Finances</router-link
+          Expenses</router-link
         >
       </li>
       <li

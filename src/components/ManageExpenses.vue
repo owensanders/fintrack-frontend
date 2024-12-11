@@ -30,22 +30,23 @@
           />
           <button
               type="submit"
+              :disabled="loading"
               class="w-full bg-green-500 hover:bg-gray-800 transition text-white font-semibold py-2 px-4 rounded-md mt-4"
           >
-            {{ editingExpense ? "Update Expense" : "Add Expense" }}
+            {{ loading ? "Processing..." : (editingExpense ? "Update Expense" : "Add Expense") }}
           </button>
         </form>
       </div>
       <div
-        class="bg-zinc-800 rounded-lg p-6 flex flex-col justify-center items-center md:block mt-4"
+          class="bg-zinc-800 rounded-lg p-6 flex flex-col justify-center items-center md:block mt-4"
       >
         <div>
           <h2 class="text-2xl mb-4 text-center md:text-start">Current Expenses</h2>
           <ul v-if="expenses.length > 0">
             <li
-              v-for="(expense) in expenses"
-              :key="expense.id"
-              class="bg-zinc-700 p-4 rounded mb-4 md:flex justify-between items-center"
+                v-for="(expense) in expenses"
+                :key="expense.id"
+                class="bg-zinc-700 p-4 rounded mb-4 md:flex justify-between items-center"
             >
               <div>
                 <h3 class="font-semibold">{{ expense.expense_name }}</h3>
@@ -53,14 +54,14 @@
               </div>
               <div class="flex space-x-4 mt-1 md:mt-0">
                 <button
-                  @click="setExpenseToUpdate(expense.id)"
-                  class="bg-green-500 hover:bg-gray-800 transition text-white px-4 py-2 rounded"
+                    @click="setExpenseToUpdate(expense.id)"
+                    class="bg-green-500 hover:bg-gray-800 transition text-white px-4 py-2 rounded"
                 >
                   Edit
                 </button>
                 <button
-                  @click="destroyExpense(expense.id)"
-                  class="border-2 border-green-500 hover:border-gray-800 transition text-white px-4 py-2 rounded"
+                    @click="destroyExpense(expense.id)"
+                    class="border-2 border-green-500 hover:border-gray-800 transition text-white px-4 py-2 rounded"
                 >
                   Delete
                 </button>
@@ -75,16 +76,16 @@
 </template>
 
 <script setup lang="ts">
-import {reactive, ref} from "vue";
+import { reactive, ref } from "vue";
 import NavBar from "./ui/NavBar.vue";
 import SideBar from "./ui/SideBar.vue";
 import Input from "./ui/Input.vue";
 import { UserExpenseData } from "@/types/UserExpenseData";
 import { useAuthStore } from "@/stores/auth";
 import { Errors } from "@/types/Errors";
-import { resetFormErrors } from "@/utils/formHelper";
+import {processFormErrors, resetFormErrors} from "@/utils/formHelper";
 import { useRouter } from "vue-router";
-import {destroy, store, update} from "@/services/userExpenseService";
+import { destroy, store, update } from "@/services/userExpenseService";
 import FormErrors from "@/components/ui/FormErrors.vue";
 import SuccessMessage from "@/components/ui/SuccessMessage.vue";
 
@@ -104,16 +105,18 @@ const errors = reactive<Errors>({
 });
 const successMessageVisible = ref(false);
 const successMessage = ref("");
+const loading = ref(false);
 
 const handleSaveExpense = async () => {
+  loading.value = true;
   try {
     resetFormErrors(errors);
 
     if (newExpense.value.id) {
-      await updateExpense();
+      await saveExpense(update);
       successMessage.value = "Expense successfully updated.";
     } else {
-      await storeExpense();
+      await saveExpense(store);
       successMessage.value = "Expense successfully added.";
     }
 
@@ -126,14 +129,24 @@ const handleSaveExpense = async () => {
     }, 2000);
     await router.push("/manage-expenses");
   } catch (error: never) {
-    if (error?.response?.status === 422) {
-      Object.keys(error.response.data.errors).forEach((key) => {
-        errors[key] = error.response.data.errors[key];
-      });
+    const processedErrors = processFormErrors(error);
+    if (Object.keys(processedErrors).length > 0) {
+      Object.assign(errors, processedErrors);
     } else {
+      errors.general = ["An unexpected error occurred. Please try again."];
       console.error("An unexpected error occurred:", error);
     }
+  } finally {
+    loading.value = false;
   }
+};
+
+const saveExpense = async (apiMethod: typeof store | typeof update) => {
+  const response = await apiMethod(newExpense.value);
+  const user = response.data;
+  authStore.setUser(user);
+  expenses.value = user.expenses;
+  editingExpense.value = false;
 };
 
 const setExpenseToUpdate = (expenseId: number) => {
@@ -147,35 +160,18 @@ const setExpenseToUpdate = (expenseId: number) => {
   }
 };
 
-const storeExpense = async () => {
-  const response = await store(newExpense.value);
-  const user = response.data;
-
-  authStore.setUser(user);
-  expenses.value = user.expenses;
-};
-
 const destroyExpense = async (expenseId: number) => {
   const response = await destroy(expenseId);
   const user = response.data;
 
   successMessage.value = "Expense successfully deleted.";
   authStore.setUser(user);
-  expenses.value = expenses.value.filter(expense => expense.id != expenseId);
+  expenses.value = expenses.value.filter((expense) => expense.id != expenseId);
   successMessageVisible.value = true;
 
   setTimeout(() => {
     successMessageVisible.value = false;
     successMessage.value = "";
   }, 2000);
-};
-
-const updateExpense = async () => {
-  const response = await update(newExpense.value);
-  const user = response.data;
-
-  authStore.setUser(user);
-  expenses.value = user.expenses;
-  editingExpense.value = false;
 };
 </script>

@@ -28,8 +28,10 @@
         <button
             type="submit"
             class="w-full py-2 px-4 bg-green-500 hover:bg-gray-700 text-white font-semibold rounded-md shadow transition duration-150"
+            :disabled="loading"
         >
-          Login
+          <span v-if="loading">Loading...</span>
+          <span v-else>Login</span>
         </button>
       </form>
       <router-link
@@ -49,7 +51,7 @@ import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import apiClient from "@/services/axios";
 import { login } from "@/services/authService";
-import { resetFormErrors } from "@/utils/formHelper";
+import {processFormErrors, resetFormErrors} from "@/utils/formHelper";
 import { AuthenticatedResponse } from "@/types/AuthenticatedResponse";
 import { Errors } from "@/types/Errors";
 import FormErrors from "@/components/ui/FormErrors.vue";
@@ -58,29 +60,35 @@ const router = useRouter();
 const authStore = useAuthStore();
 const email = ref("");
 const password = ref("");
+const loading = ref(false);
 const errors = reactive<Errors>({
   email: [],
   password: [],
 });
 
 const handleLogin = async (): Promise<void> => {
+  loading.value = true;
   try {
     resetFormErrors(errors);
-
-    await apiClient.get("/sanctum/csrf-cookie");
-    const response = await login(email.value, password.value);
-    const { token, user } = response.data as AuthenticatedResponse;
-
-    authStore.setAuthenticated(token, user);
-    await router.push("/dashboard");
-  } catch (error: never) {
-    if (error?.response?.status === 422) {
-      Object.keys(error.response.data.errors).forEach((key) => {
-        errors[key] = error.response.data.errors[key];
-      });
+    await authenticateUser();
+  } catch (error: unknown) {
+    const processedErrors = processFormErrors(error);
+    if (Object.keys(processedErrors).length > 0) {
+      Object.assign(errors, processedErrors);
     } else {
+      errors.general = ["An unexpected error occurred. Please try again."];
       console.error("An unexpected error occurred:", error);
     }
+  } finally {
+    loading.value = false;
   }
+};
+
+const authenticateUser = async (): Promise<void> => {
+  await apiClient.get("/sanctum/csrf-cookie");
+  const response = await login(email.value, password.value);
+  const { token, user } = response.data as AuthenticatedResponse;
+  authStore.setAuthenticated(token, user);
+  await router.push("/dashboard");
 };
 </script>

@@ -36,8 +36,10 @@
             <button
                 type="submit"
                 class="w-full py-2 px-4 mt-3 bg-green-500 hover:bg-gray-700 text-white font-semibold rounded-md shadow transition duration-150"
+                :disabled="loading"
             >
-              Update profile
+              <span v-if="loading">Updating...</span>
+              <span v-else>Update Profile</span>
             </button>
           </div>
         </form>
@@ -53,7 +55,7 @@ import Input from "./ui/Input.vue";
 import {reactive, ref} from "vue";
 import {useAuthStore} from "@/stores/auth";
 import {Errors} from "@/types/Errors";
-import {resetFormErrors} from "@/utils/formHelper";
+import {processFormErrors, resetFormErrors} from "@/utils/formHelper";
 import {updateProfile} from "@/services/userService";
 import {useRouter} from "vue-router";
 import FormErrors from "@/components/ui/FormErrors.vue";
@@ -70,8 +72,10 @@ const errors = reactive<Errors>({
   monthly_income: [],
 });
 const successMessageVisible = ref(false);
+const loading = ref(false);
 
 const handleUpdate = async () => {
+  loading.value = true;
   try {
     resetFormErrors(errors);
 
@@ -85,13 +89,15 @@ const handleUpdate = async () => {
     }, 2000);
     await router.push("/my-profile");
   } catch (error: never) {
-    if (error?.response?.status === 422) {
-      Object.keys(error.response.data.errors).forEach((key) => {
-        errors[key] = error.response.data.errors[key];
-      });
+    const processedErrors = processFormErrors(error);
+    if (Object.keys(processedErrors).length > 0) {
+      Object.assign(errors, processedErrors);
     } else {
+      errors.general = ["An unexpected error occurred. Please try again."];
       console.error("An unexpected error occurred:", error);
     }
+  } finally {
+    loading.value = false;
   }
 };
 </script>

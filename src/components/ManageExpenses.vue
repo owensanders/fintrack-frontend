@@ -161,6 +161,7 @@ const setExpenseToUpdate = (expenseId: number) => {
 };
 
 const destroyExpense = async (expenseId: number) => {
+  resetFormErrors(errors);
   const response = await destroy(expenseId);
   const user = response.data;
 

@@ -120,7 +120,7 @@ const handleSaveExpense = async () => {
       successMessage.value = "Expense successfully added.";
     }
 
-    newExpense.value = { id: null, user_id: authStore.user?.id, expense_name: "", expense_amount: null };
+    resetForm();
     successMessageVisible.value = true;
 
     setTimeout(() => {
@@ -168,10 +168,16 @@ const destroyExpense = async (expenseId: number) => {
   authStore.setUser(user);
   expenses.value = expenses.value.filter((expense) => expense.id != expenseId);
   successMessageVisible.value = true;
+  resetForm();
 
   setTimeout(() => {
     successMessageVisible.value = false;
     successMessage.value = "";
   }, 2000);
 };
+
+const resetForm = () => {
+  newExpense.value = { id: null, user_id: authStore.user?.id, expense_name: "", expense_amount: null };
+  editingExpense.value = false;
+}
 </script>

@@ -8,7 +8,7 @@
         <div
           class="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center text-lg font-semibold"
         >
-          JD
+          {{ getInitials(authStore.user.name) }}
         </div>
       </div>
       <button
@@ -65,4 +65,13 @@ const handleLogout = async () => {
     console.error("Logout failed", error);
   }
 };
+
+const getInitials = (name: string | null | undefined): string => {
+  if (!name) return '';
+  const nameParts = name.split(' ');
+  const firstInitial = nameParts[0]?.charAt(0).toUpperCase() || '';
+  const secondInitial = nameParts[1]?.charAt(0).toUpperCase() || '';
+  return firstInitial + secondInitial;
+};
+
 </script>

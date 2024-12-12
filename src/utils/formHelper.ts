@@ -13,5 +13,14 @@ export const processFormErrors = (error: any): Record<string, string[]> => {
             errors[key] = error.response.data.errors[key];
         });
     }
+
+    if (error?.response?.status === 403) {
+        errors.general = ["You don't have permission to perform this action."];
+    }
+
+    if (error?.response?.status === 500) {
+        errors.general = ["There was an error when trying to make this request, please try again."];
+    }
+
     return errors;
 };

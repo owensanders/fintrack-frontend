@@ -4,6 +4,7 @@ export type User = {
     id: number;
     name: string;
     email: string;
-    monthlyIncome: number;
+    monthly_income: number;
     expenses: UserExpenseData[] | null;
+    expense_total_amount: number;
 }

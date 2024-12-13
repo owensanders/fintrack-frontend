@@ -65,7 +65,7 @@ const authStore = useAuthStore();
 const router = useRouter();
 const email = ref<string | null>(authStore.user?.email || "");
 const name = ref<string | null>(authStore.user?.name || "");
-const monthlyIncome = ref<number | null>(authStore.user?.monthlyIncome || 0.00);
+const monthlyIncome = ref<number | null>(authStore.user?.monthly_income || 0.00);
 const errors = reactive<Errors>({
   email: [],
   password: [],

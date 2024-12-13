@@ -1,7 +1,7 @@
 <template>
-  <NavBar />
+  <NavBar/>
   <div class="flex">
-    <SideBar />
+    <SideBar/>
     <div class="flex-grow p-8 bg-black text-white">
       <h1 class="text-3xl mb-6">Budget Manager</h1>
       <div class="bg-zinc-800 rounded-lg p-6">
@@ -9,32 +9,23 @@
         <div class="grid grid-cols-2 gap-6">
           <div>
             <h3 class="text-lg font-medium">Monthly Income</h3>
-            <p class="text-2xl font-semibold">£5000</p>
+            <p class="text-2xl font-semibold">£{{ monthlyIncome }}</p>
           </div>
           <div>
             <h3 class="text-lg font-medium">Total Expenses</h3>
-            <p class="text-2xl font-semibold">£2250</p>
+            <p class="text-2xl font-semibold">£{{ totalExpenses }}</p>
           </div>
         </div>
         <div class="border-t border-zinc-700 pt-4 mt-6">
           <h3 class="text-lg font-medium">Remaining</h3>
-          <p class="text-2xl font-bold text-green-500">£2750</p>
+          <p class="text-2xl font-bold text-green-500">£{{ remainingAmount }}</p>
         </div>
       </div>
       <div class="bg-zinc-800 rounded-lg p-6 mt-6">
         <h2 class="text-2xl mb-4">Expenses Breakdown</h2>
         <ul class="divide-y divide-zinc-700">
-          <li class="py-3 flex justify-between">
-            <span>Rent</span><span class="font-semibold">£1500</span>
-          </li>
-          <li class="py-3 flex justify-between">
-            <span>Utilities</span><span class="font-semibold">£200</span>
-          </li>
-          <li class="py-3 flex justify-between">
-            <span>Groceries</span><span class="font-semibold">£400</span>
-          </li>
-          <li class="py-3 flex justify-between">
-            <span>Transportation</span><span class="font-semibold">£150</span>
+          <li v-for="expense in expenses" class="py-3 flex justify-between" :key="expense.id">
+            <span>{{ expense.expense_name }}</span><span class="font-semibold">£{{ expense.expense_amount }}</span>
           </li>
         </ul>
       </div>
@@ -80,13 +71,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import {ref, computed} from "vue";
 import NavBar from "./ui/NavBar.vue";
 import SideBar from "./ui/SideBar.vue";
 import Input from "./ui/Input.vue";
+import {useAuthStore} from "@/stores/auth";
+import {UserExpenseData} from "@/types/UserExpenseData";
 
+const authStore = useAuthStore();
 const allocationName = ref('');
 const allocationAmount = ref<number | null>(null);
+
+const expenses = computed<UserExpenseData[]>(() => authStore.user?.expenses ?? []);
+const monthlyIncome = computed(() => authStore.user?.monthly_income ?? 0);
+const totalExpenses = computed(() => authStore.user?.expense_total_amount ?? 0);
+const remainingAmount = computed(() => monthlyIncome.value - totalExpenses.value);
 
 const allocateFunds = () => {
   console.log(`Allocating ${allocationAmount.value} to ${allocationName.value}`);

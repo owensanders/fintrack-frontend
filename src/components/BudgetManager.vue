@@ -83,9 +83,9 @@ const allocationName = ref('');
 const allocationAmount = ref<number | null>(null);
 
 const expenses = computed<UserExpenseData[]>(() => authStore.user?.expenses ?? []);
-const monthlyIncome = computed(() => authStore.user?.monthly_income ?? 0);
-const totalExpenses = computed(() => authStore.user?.expense_total_amount ?? 0);
-const remainingAmount = computed(() => monthlyIncome.value - totalExpenses.value);
+const monthlyIncome = computed<number>(() => authStore.user?.monthly_income ?? 0);
+const totalExpenses = computed<number>(() => authStore.user?.expense_total_amount ?? 0);
+const remainingAmount = computed<number>(() => monthlyIncome.value - totalExpenses.value);
 
 const allocateFunds = () => {
   console.log(`Allocating ${allocationAmount.value} to ${allocationName.value}`);

@@ -38,14 +38,13 @@
       <li
         :class="{
           'bg-zinc-800 rounded-lg p-3 text-sm text-green-500': isActiveRoute(
-            '/savings-investments'
+            '/savings'
           ),
         }"
         class="hover:bg-zinc-800 p-3 text-sm rounded-lg transition duration-300"
       >
-        <router-link to="/savings-investments"
-          ><i class="fa-solid fa-arrow-up-right-dots mr-3"></i> Savings And
-          Investments</router-link
+        <router-link to="/savings"
+          ><i class="fa-solid fa-arrow-up-right-dots mr-3"></i> Savings</router-link
         >
       </li>
       <li

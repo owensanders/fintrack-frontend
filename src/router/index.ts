@@ -3,10 +3,10 @@ import Login from "@/components/auth/Login.vue";
 import Register from "@/components/auth/Register.vue";
 import Dashboard from "@/components/Dashboard.vue";
 import MyProfile from "@/components/MyProfile.vue";
-import SavingsAndInvestments from "@/components/SavingsAndInvestments.vue";
 import BudgetManager from "@/components/BudgetManager.vue";
 import { useAuthStore } from "@/stores/auth";
 import ManageExpenses from "@/components/ManageExpenses.vue";
+import Savings from "@/components/Savings.vue";
 
 const routes = [
   {
@@ -43,9 +43,9 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/savings-investments",
-    name: "savings-investments",
-    component: SavingsAndInvestments,
+    path: "/savings",
+    name: "savings",
+    component: Savings,
     meta: { requiresAuth: true },
   },
   {

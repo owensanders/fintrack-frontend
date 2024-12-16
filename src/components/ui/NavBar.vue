@@ -30,8 +30,8 @@
           <router-link to="/manage-expenses">Manage Expenses</router-link>
         </li>
         <li>
-          <router-link to="/savings-investments">
-            Saving And Investments
+          <router-link to="/savings">
+            Savings
           </router-link>
         </li>
         <li>

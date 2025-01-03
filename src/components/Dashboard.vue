@@ -20,14 +20,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import {computed} from "vue";
 import NavBar from "./ui/NavBar.vue";
 import AskAQuestion from "./AskAQuestion.vue";
 import FinancialGoals from "./FinancialGoals.vue";
 import FinanceTips from "./FinanceTips.vue";
 import SideBar from "./ui/SideBar.vue";
 import PieChart from "./ui/PieChart.vue";
+import {useAuthStore} from "@/stores/auth";
 
-const monthlyIncome = ref(4000);
-const totalExpenses = ref(2500);
+const authStore = useAuthStore();
+const monthlyIncome = computed<number>(() => authStore.user?.monthly_income ?? 0);
+const totalExpenses = computed<number>(() => authStore.user?.expense_total_amount ?? 0);
 </script>

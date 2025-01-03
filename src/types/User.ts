@@ -1,4 +1,5 @@
-import { UserExpenseData } from "@/types/UserExpenseData";
+import {UserExpenseData} from "@/types/UserExpenseData";
+import {UserSavingData} from "@/types/UserSavingData";
 
 export type User = {
     id: number;
@@ -6,5 +7,7 @@ export type User = {
     email: string;
     monthly_income: number;
     expenses: UserExpenseData[] | null;
+    savings: UserSavingData[] | null;
     expense_total_amount: number;
+    savings_total_amount: number;
 }

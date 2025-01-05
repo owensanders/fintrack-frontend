@@ -10,6 +10,8 @@
     <li>TailwindCSS</li>
 </ul>
 
+<p>The app os fully responsive, made easy using TailwindCSS</p>
+
 ## Project setup
 ```
 npm install

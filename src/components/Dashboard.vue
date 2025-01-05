@@ -14,7 +14,6 @@
           <PieChart :income="monthlyIncome" :expenses="totalExpenses" />
         </div>
       </div>
-      <AskAQuestion />
     </div>
   </div>
 </template>
@@ -22,7 +21,6 @@
 <script setup lang="ts">
 import {computed} from "vue";
 import NavBar from "./ui/NavBar.vue";
-import AskAQuestion from "./AskAQuestion.vue";
 import FinancialGoals from "./FinancialGoals.vue";
 import FinanceTips from "./FinanceTips.vue";
 import SideBar from "./ui/SideBar.vue";

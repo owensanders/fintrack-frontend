@@ -33,91 +33,32 @@
         </ul>
         <p v-else>You don't currently have any expenses listed, visit the Manage Expenses page to add some.</p>
       </div>
-      <div class="bg-zinc-800 rounded-lg p-6 mt-6 shadow-md">
-        <h2 class="text-2xl font-semibold mb-6 text-center border-b border-zinc-700 pb-4">Left Over Allocations</h2>
-        <form @submit.prevent="allocateFunds" class="space-y-6">
-          <div class="flex flex-col">
-            <Input
-                label="Allocation name"
-                id="allocation-name"
-                v-model="allocationName"
-                type="text"
-                :is-required="true"
-            />
-          </div>
-          <div class="flex flex-col">
-            <Input
-                label="Amount"
-                id="allocation-amount"
-                v-model="allocationAmount"
-                type="number"
-                :is-required="true"
-            />
-          </div>
-          <div class="text-right">
-            <button
-                type="submit"
-                class="bg-green-500 hover:bg-green-600 transition text-white font-semibold rounded-md px-6 py-2"
-            >
-              Allocate Funds
-            </button>
-          </div>
-        </form>
-        <div class="border-t border-zinc-700 mt-6 pt-6">
-          <div class="flex justify-between items-center mb-6">
-            <div>
-              <h3 class="text-lg font-medium">Unallocated</h3>
-              <p class="text-2xl font-semibold text-yellow-400 mt-2">£2750</p>
-            </div>
-            <i class="fas fa-chart-pie text-4xl text-green-500"></i>
-          </div>
-        </div>
-        <div>
-          <h3 class="text-lg font-medium border-b border-zinc-700 pb-3 mb-4">Current Allocations</h3>
-          <ul v-if="alllocations.length > 0" class="space-y-4">
-            <li
-                v-for="(allocation, index) in allocations"
-                :key="index"
-                class="flex justify-between items-center bg-zinc-700 rounded-lg p-4"
-            >
-              <div>
-                <p class="text-lg font-semibold">{{ allocation.name }}</p>
-                <p class="text-sm text-zinc-400">£{{ allocation.amount }}</p>
-              </div>
-              <button
-                  @click="removeAllocation(index)"
-                  class="bg-red-500 hover:bg-red-600 text-white font-medium rounded-md px-4 py-2 text-sm"
-              >
-                Remove
-              </button>
-            </li>
-          </ul>
-          <p v-else>You don't currently have any allocations, add some using the form above.</p>
-        </div>
+      <div v-if="remainingAmount > 0" class="bg-zinc-800 rounded-lg p-6 mt-6">
+        <h2 class="text-2xl mb-4">Remaining Money</h2>
+        <p class="my-2 text-lg">We suggest with the left over money first allocating some to your savings goals:</p>
+        <ul class="list-disc pl-5">
+          <li v-for="saving in savings" :key="saving.id">{{ saving.saving_name }}</li>
+        </ul>
+        <p class="mt-2 text-lg">
+          Finally, any left overs can be used as free spending money to be spent on anything you would like.
+          But remember this money is to last the whole month and doesn't have to be spent for the sake of it.
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {ref, computed} from "vue";
+import {computed, ref} from "vue";
 import NavBar from "./ui/NavBar.vue";
 import SideBar from "./ui/SideBar.vue";
-import Input from "./ui/Input.vue";
 import {useAuthStore} from "@/stores/auth";
 import {UserExpenseData} from "@/types/UserExpenseData";
 
 const authStore = useAuthStore();
-const allocationName = ref('');
-const allocationAmount = ref<number | null>(null);
-const alllocations = ref([]);
-
 const expenses = computed<UserExpenseData[]>(() => authStore.user?.expenses ?? []);
 const monthlyIncome = computed<number>(() => authStore.user?.monthly_income ?? 0);
 const totalExpenses = computed<number>(() => authStore.user?.expense_total_amount ?? 0);
 const remainingAmount = computed<number>(() => monthlyIncome.value - totalExpenses.value);
-
-const allocateFunds = () => {
-  console.log(`Allocating ${allocationAmount.value} to ${allocationName.value}`);
-};
+const savings = ref(authStore.user?.savings || []);
 </script>

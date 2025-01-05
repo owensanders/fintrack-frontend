@@ -1,7 +1,14 @@
 # Fintrack Frontend
 <p>Fintrack is a finance app that allows a user to manage their finances and recieve tips and tricks on how to manage money better.</p>
 <p>This project goes hand in hand with fintrack-backend, please complete the setup for that repository first before completing the setup for this.</p>
-<p><strong>THIS PROJECT IS NOT COMPLETE.</strong></p>
+<p>Technologies used:</p>
+<ul>
+    <li>Vue</li>
+    <li>Typescript</li>
+    <li>Vue-Router</li>
+    <li>Pinia</li>
+    <li>TailwindCSS</li>
+</ul>
 
 ## Project setup
 ```

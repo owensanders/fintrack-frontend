@@ -18,6 +18,10 @@ export const processFormErrors = (error: any): Record<string, string[]> => {
         errors.general = ["You don't have permission to perform this action."];
     }
 
+    if (error?.response?.status === 401) {
+        errors.general = [error?.response?.data?.error];
+    }
+
     if (error?.response?.status === 500 || error?.response?.status === 404) {
         if (error.response.data?.errors) {
             Object.keys(error.response.data.errors).forEach((key) => {

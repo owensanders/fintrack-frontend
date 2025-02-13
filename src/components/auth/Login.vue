@@ -77,7 +77,6 @@ const handleLogin = async (): Promise<void> => {
       Object.assign(errors, processedErrors);
     } else {
       errors.general = ["An unexpected error occurred. Please try again."];
-      console.error("An unexpected error occurred:", error);
     }
   } finally {
     loading.value = false;
